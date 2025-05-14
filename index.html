@@ -1,0 +1,231 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Super Mario 90's & Early 2k</title>
+    <link href="Content/style.css" rel="stylesheet" />
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #1e1e1e;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        h1 {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            font-weight: 900;
+            color: #ffcc00;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Background & Loading Screen */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000 url('https://i.imgur.com/llF5iyg.gif') center center no-repeat;
+            background-size: 100px 100px;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Main Menu Styles */
+        #menu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        /* Button Styles */
+        #menu button {
+            padding: 16px 32px;
+            font-size: 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #ffcc00;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        #menu button:hover {
+            background-color: #ffaa00;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        #menu button:active {
+            background-color: #e68a00;
+            transform: translateY(2px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Game Content */
+        #game {
+            display: none;
+            text-align: center;
+        }
+
+        /* Background music (hidden autoplay YouTube embed) */
+        iframe {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen">Loading...</div>
+
+    <!-- Menu -->
+    <div id="menu">
+        <h1>Super Mario Na summa va</h1>
+        <button id="newGameBtn">Start Game</button>
+        <button id="settingsBtn">Settings</button>
+        <button id="exitBtn">Exit</button>
+    </div>
+
+    <!-- Game Content -->
+    <div id="game">
+        <div id="world"></div>
+        <div id="coinNumber" class="gauge">0</div>
+        <div id="coin" class="gaugeSprite"></div>
+        <div id="liveNumber" class="gauge">0</div>
+        <div id="live" class="gaugeSprite"></div>
+    </div>
+
+    <!-- Background music (hidden autoplay YouTube embed) -->
+    <iframe width="0" height="0" src="https://www.youtube.com/embed/SB1VqLCTFpA?rel=0&autoplay=1" frameborder="0"
+        allow="autoplay" allowfullscreen></iframe>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="Scripts/jQuery.js"><\/script>')</script>
+    <script src="Scripts/testlevels.js"></script>
+    <script src="Scripts/oop.js"></script>
+    <script src="Scripts/keys.js"></script>
+    <script src="Scripts/constants.js"></script>
+    <script src="Scripts/main.js"></script>
+
+    <script>
+        // Hide loading screen when page fully loads
+        window.addEventListener('load', function () {
+            document.getElementById('loadingScreen').style.display = 'none';
+        });
+
+        // Menu Button Actions
+        document.getElementById('newGameBtn').addEventListener('click', startNewGame);
+        document.getElementById('settingsBtn').addEventListener('click', openSettings);
+        document.getElementById('exitBtn').addEventListener('click', exitGame);
+
+        // Function to start a new game
+        function startNewGame() {
+            document.getElementById('menu').style.display = 'none';
+            document.getElementById('game').style.display = 'block';
+            startGame(); // Start the actual game logic here
+        }
+
+        // Function to open settings
+        function openSettings() {
+            alert('Settings not implemented yet.');
+        }
+
+        // Function to exit the game
+        function exitGame() {
+            alert('Exiting game...');
+            // Attempt to close the window
+            if (window.opener) {
+                window.close(); // This works if the page was opened with window.open()
+            } else {
+                // If not, redirect to a "goodbye" or other page.
+                window.location.href = 'https://www.example.com'; // Change this URL to your preferred redirect
+            }
+        }
+
+        // Listen for the Enter key to start the game
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                startNewGame(); // Trigger new game when Enter is pressed
+            }
+        });
+
+        // Game state variables (add any you already have)
+        let player, world, coins, lives;
+
+        // Game update function
+        function updateGame() {
+            // Your game logic here (player movement, enemy AI, etc.)
+            // For example:
+            // player.update();
+            // world.update();
+            // coins.update();
+            // lives.update();
+        }
+
+        // Game rendering function
+        function drawGame() {
+            // Your rendering logic here (drawing to canvas)
+            // For example:
+            // player.draw();
+            // world.draw();
+            // coins.draw();
+            // lives.draw();
+        }
+
+        // Game loop function
+        function gameLoop() {
+            updateGame();   // run game logic
+            drawGame();     // run drawing/rendering
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Function to start the game
+        function startGame() {
+            // Start the game loop
+            requestAnimationFrame(gameLoop);
+        }
+
+    </script>
+
+</body>
+
+</html>

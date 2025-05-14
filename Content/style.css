@@ -1,0 +1,100 @@
+﻿@font-face {
+   font-family: 'SMB';
+   src: local('Super Mario Bros.'),
+        url('fonts/Super Mario Bros.ttf') format('truetype');
+   font-style: normal;
+}
+
+/* Fullscreen container */
+#game {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: none;
+	overflow: hidden;
+	transform: scale(calc(min(100vw / 640, 100vh / 480)));
+	transform-origin: top left;
+	background-color: #000; /* optional, looks better on phones */
+}
+
+/* Game content (optional if already positioned correctly) */
+#gameContent {
+	width: 640px;
+	height: 480px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1);
+	transform-origin: top left;
+}
+
+/* Scale adjustment by aspect ratio */
+@media screen and (min-aspect-ratio: 4/3) {
+	#gameContent {
+		transform: translate(-50%, -50%) scale(calc(100vh / 480));
+	}
+}
+@media screen and (max-aspect-ratio: 4/3) {
+	#gameContent {
+		transform: translate(-50%, -50%) scale(calc(100vw / 640));
+	}
+}
+
+/* World and content */
+#world {
+	margin: 0; padding: 0; height: 100%; width: 100%; position: absolute;
+	bottom: 0; left: 0; z-index: 0;
+}
+
+/* UI elements */
+.gauge {
+	margin: 0; padding: 0;
+	height: 50px; width: 70px; text-align: right;
+	font-size: 2em; font-weight: bold;
+	position: absolute; top: 17px; right: 52px;
+	z-index: 1000; font-family: 'SMB';
+}
+
+.gaugeSprite {
+	margin: 0; padding: 0; z-index: 1000; position: absolute;
+}
+
+#coinNumber { left: 0; }
+#liveNumber { right: 52px; }
+
+#coin {
+	height: 32px; width: 32px;
+	background-image: url(mario-objects.png);
+	background-position: 0 0;
+	top: 15px; left: 70px; position: absolute;
+}
+
+#live {
+	height: 40px; width: 40px;
+	background-image: url(mario-sprites.png);
+	background-position: 0 -430px;
+	top: 12px; right: 8px; position: absolute;
+}
+
+.figure {
+	margin: 0; padding: 0; z-index: 99; position: absolute;
+}
+
+.matter {
+	margin: 0; padding: 0; z-index: 95;
+	position: absolute; width: 32px; height: 32px;
+}
+
+/* 🔽 Responsive font/icon scaling for smaller screens */
+@media (max-width: 480px) {
+	.gauge {
+		font-size: 1.5em;
+	}
+
+	#coin, #live {
+		transform: scale(0.9);
+		transform-origin: top left;
+	}
+}
