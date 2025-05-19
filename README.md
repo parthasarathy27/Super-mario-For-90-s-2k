@@ -9,7 +9,6 @@ A nostalgic retro-style browser game inspired by the 90's and early 2000s Super 
 4. [Usage](#usage)
 5. [Game Controls](#game-controls)
 6. [Contributing](#contributing)
-7. [License](#license)
 
 ## Project Overview
 
