@@ -1,8 +1,8 @@
-﻿@font-face {
-   font-family: 'SMB';
-   src: local('Super Mario Bros.'),
-        url('fonts/Super Mario Bros.ttf') format('truetype');
-   font-style: normal;
+@font-face {
+	font-family: 'SMB';
+	src: local('Super Mario Bros.'),
+		url('fonts/Super Mario Bros.ttf') format('truetype');
+	font-style: normal;
 }
 
 /* Fullscreen container */
@@ -16,7 +16,8 @@
 	overflow: hidden;
 	transform: scale(calc(min(100vw / 640, 100vh / 480)));
 	transform-origin: top left;
-	background-color: #000; /* optional, looks better on phones */
+	background-color: #000;
+	/* optional, looks better on phones */
 }
 
 /* Game content (optional if already positioned correctly) */
@@ -30,12 +31,88 @@
 	transform-origin: top left;
 }
 
+#game-controls {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	z-index: 999;
+}
+
+#game-controls button {
+	padding: 10px 15px;
+	font-size: 15px;
+	background: linear-gradient(135deg, #f0f0f0, #ddd);
+	color: #222;
+	border: 2px solid #444;
+	border-radius: 8px;
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+#game-controls button:hover {
+	background: linear-gradient(135deg, #fff, #ccc);
+	transform: translateY(-1px);
+}
+
+#instructionsBox {
+	position: absolute;
+	top: 200px;
+	right: 20px;
+	width: 250px;
+	background: #fff;
+	border: 2px solid #444;
+	border-radius: 10px;
+	padding: 15px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	z-index: 998;
+	display: none;
+	font-family: 'Arial', sans-serif;
+}
+
+#instructionsBox h3 {
+	margin-top: 0;
+	color: #333;
+	text-align: center;
+}
+
+#instructionsBox ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+#instructionsBox li {
+	margin-bottom: 8px;
+	color: #555;
+}
+
+#instructionsBox button {
+	margin-top: 10px;
+	width: 100%;
+	background-color: #ff4c4c;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	padding: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+#instructionsBox button:hover {
+	background-color: #e03939;
+}
+
+
 /* Scale adjustment by aspect ratio */
 @media screen and (min-aspect-ratio: 4/3) {
 	#gameContent {
 		transform: translate(-50%, -50%) scale(calc(100vh / 480));
 	}
 }
+
 @media screen and (max-aspect-ratio: 4/3) {
 	#gameContent {
 		transform: translate(-50%, -50%) scale(calc(100vw / 640));
@@ -44,47 +121,81 @@
 
 /* World and content */
 #world {
-	margin: 0; padding: 0; height: 100%; width: 100%; position: absolute;
-	bottom: 0; left: 0; z-index: 0;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 0;
 }
 
 /* UI elements */
 .gauge {
-	margin: 0; padding: 0;
-	height: 50px; width: 70px; text-align: right;
-	font-size: 2em; font-weight: bold;
-	position: absolute; top: 17px; right: 52px;
-	z-index: 1000; font-family: 'SMB';
+	margin: 0;
+	padding: 0;
+	height: 50px;
+	width: 70px;
+	text-align: right;
+	font-size: 2em;
+	font-weight: bold;
+	position: absolute;
+	top: 17px;
+	right: 52px;
+	z-index: 1000;
+	font-family: 'SMB';
 }
 
 .gaugeSprite {
-	margin: 0; padding: 0; z-index: 1000; position: absolute;
+	margin: 0;
+	padding: 0;
+	z-index: 1000;
+	position: absolute;
 }
 
-#coinNumber { left: 0; }
-#liveNumber { right: 52px; }
+#coinNumber {
+	left: 0;
+}
+
+#liveNumber {
+	right: 52px;
+}
 
 #coin {
-	height: 32px; width: 32px;
+	height: 32px;
+	width: 32px;
 	background-image: url(mario-objects.png);
 	background-position: 0 0;
-	top: 15px; left: 70px; position: absolute;
+	top: 15px;
+	left: 70px;
+	position: absolute;
 }
 
 #live {
-	height: 40px; width: 40px;
+	height: 40px;
+	width: 40px;
 	background-image: url(mario-sprites.png);
 	background-position: 0 -430px;
-	top: 12px; right: 8px; position: absolute;
+	top: 12px;
+	right: 8px;
+	position: absolute;
 }
 
 .figure {
-	margin: 0; padding: 0; z-index: 99; position: absolute;
+	margin: 0;
+	padding: 0;
+	z-index: 99;
+	position: absolute;
 }
 
 .matter {
-	margin: 0; padding: 0; z-index: 95;
-	position: absolute; width: 32px; height: 32px;
+	margin: 0;
+	padding: 0;
+	z-index: 95;
+	position: absolute;
+	width: 32px;
+	height: 32px;
 }
 
 /* 🔽 Responsive font/icon scaling for smaller screens */
@@ -93,8 +204,89 @@
 		font-size: 1.5em;
 	}
 
-	#coin, #live {
+	#coin,
+	#live {
 		transform: scale(0.9);
 		transform-origin: top left;
+	}
+}
+
+
+/* Game overlay container inside #game */
+#gameOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1500;
+	pointer-events: none;
+}
+
+.screen {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.85);
+	color: #fff;
+	font-family: 'SMB', sans-serif;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	pointer-events: auto;
+	animation: fadeIn 0.4s ease;
+	flex-direction: column;
+	z-index: 1600;
+}
+
+.screenBox {
+	background: rgba(255, 255, 255, 0.1);
+	border: 2px solid #fff;
+	padding: 2rem;
+	border-radius: 12px;
+	box-shadow: 0 0 25px #fcd307;
+	width: 90%;
+	max-width: 400px;
+	margin: auto;
+}
+
+.screen h1 {
+	font-size: 2em;
+	color: #fcd307;
+	margin-bottom: 10px;
+}
+
+.screen p,
+.screen ul {
+	font-size: 1.2em;
+	margin: 1rem 0;
+}
+
+.screenBtn {
+	background: #fcd307;
+	color: #000;
+	border: none;
+	padding: 12px 24px;
+	border-radius: 10px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.screenBtn:hover {
+	background: #fff;
+	color: #fcd307;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
 	}
 }
