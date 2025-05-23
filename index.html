@@ -53,7 +53,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            display: flex;
+            display: flex !important;
             flex-direction: column;
             align-items: center;
             gap: 20px;
@@ -134,13 +134,115 @@
 
 
     <!-- Game Menu Section -->
-    <div id="menu">
+    <div id="menu" style="padding: 20px; max-width: 400px; text-align: center; margin: auto;">
         <h1>Super Mario: Na Summa Va</h1>
         <button id="newGameBtn">▶ Start Game</button>
         <button id="settingsBtn">⚙ Settings</button>
-        <button id="exitBtn">⏹ Exit</button>
+        <button id="exitMenuBtn">⏹ Exit</button>
     </div>
-    
+
+    <!-- Overlay -->
+    <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+     background: rgba(0, 0, 0, 0.6); z-index: 99;"></div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal"
+        style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+     background: #222; color: #eee; border-radius: 10px; padding: 40px; max-width: 400px; width: 90%;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; z-index: 100; box-shadow: 0 0 20px #000; animation: fadeIn 0.3s ease;">
+        <h2 style="text-align: center; margin-bottom: 30px;">⚙ Game Settings</h2>
+
+        <label for="volumeControl" style="display: block; margin-bottom: 12px; font-weight: 600;">Volume</label>
+        <input type="range" id="volumeControl" min="0" max="100" value="70" style="width: 100%; margin-bottom: 25px;">
+
+        <label for="difficultySelect" style="display: block; margin-bottom: 12px; font-weight: 600;">Difficulty</label>
+        <select id="difficultySelect"
+            style="width: 100%; padding: 10px; margin-bottom: 25px; border-radius: 5px; border: none; background: #444; color: #eee;">
+            <option value="easy">Easy</option>
+            <option value="normal" selected>Normal</option>
+            <option value="hard">Hard</option>
+            <option value="extreme">Extreme</option>
+        </select>
+
+        <label style="display: block; margin-bottom: 25px; font-weight: 600;">
+            <input type="checkbox" id="toggleMusic" checked style="margin-right: 8px;"> Background Music
+        </label>
+
+        <label style="display: block; margin-bottom: 40px; font-weight: 600;">
+            <input type="checkbox" id="toggleSFX" checked style="margin-right: 8px;"> Sound Effects
+        </label>
+
+        <div style="text-align: center; margin-bottom: 25px;">
+            <button id="saveSettingsBtn"
+                style="background-color: #f73859; border: none; padding: 12px 30px; color: white; font-weight: 700; border-radius: 7px; cursor: pointer; margin-right: 15px;">Save</button>
+            <button id="backToMenuBtn"
+                style="background-color: #555; border: none; padding: 12px 30px; color: #ccc; font-weight: 700; border-radius: 7px; cursor: pointer;">Back</button>
+        </div>
+
+        <div style="text-align: center;">
+            <button id="newGameBtnSettings"
+                style="background-color: #28a745; border: none; padding: 12px 30px; color: white; font-weight: 700; border-radius: 7px; cursor: pointer; margin-right: 15px;">▶
+                Start Game</button>
+            <button id="exitMenuBtnSettings"
+                style="background-color: #dc3545; border: none; padding: 12px 30px; color: white; font-weight: 700; border-radius: 7px; cursor: pointer;">⏹
+                Exit</button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -55%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
+
+    <script>
+        const overlay = document.getElementById("overlay");
+        const settingsModal = document.getElementById("settingsModal");
+
+        const settingsBtn = document.getElementById("settingsBtn");
+        const backToMenuBtn = document.getElementById("backToMenuBtn");
+
+        const newGameBtnSettings = document.getElementById("newGameBtnSettings");
+        const exitMenuBtnSettings = document.getElementById("exitMenuBtnSettings");
+
+        function showSettingsModal() {
+            overlay.style.display = "block";
+            settingsModal.style.display = "block";
+        }
+
+        function hideSettingsModal() {
+            overlay.style.display = "none";
+            settingsModal.style.display = "none";
+        }
+
+        settingsBtn.addEventListener("click", showSettingsModal);
+        backToMenuBtn.addEventListener("click", hideSettingsModal);
+
+        newGameBtnSettings.addEventListener("click", () => {
+            alert("Game Started from Settings!");
+            hideSettingsModal();
+        });
+
+        exitMenuBtnSettings.addEventListener("click", () => {
+            alert("Exit clicked from Settings!");
+            hideSettingsModal();
+        });
+
+        // Optional: Click outside modal to close
+        overlay.addEventListener("click", hideSettingsModal);
+    </script>
+
+
+
+
     <!-- Game Content -->
     <div id="game">
         <div id="world"></div>
@@ -148,7 +250,27 @@
         <div id="coin" class="gaugeSprite"></div>
         <div id="liveNumber" class="gauge">0</div>
         <div id="live" class="gaugeSprite"></div>
+
+        <!-- Game Controls -->
+        <div id="game-controls" style="margin-top: 60px;">
+            <button id="instructionBtn">🎮 Instructions</button>
+            <button id="exitGameBtn">❌ Exit</button>
+        </div>
+
+        <!-- Instructions Box (Initially Hidden) -->
+        <div id="instructionsBox" class="hidden">
+            <h3>Game Instructions</h3>
+            <ul>
+                <li><strong>Arrow Keys:</strong> Move Left/Right</li>
+                <li><strong>Jump:</strong> Move up</li>
+                <li><strong>Collect Coins:</strong> Increases your score</li>
+                <li><strong>Avoid Enemies:</strong> Don't lose lives!</li>
+            </ul>
+            <button id="closeInstructions">Close</button>
+        </div>
     </div>
+
+
 
     <!-- Background music (hidden autoplay YouTube embed) -->
     <iframe width="0" height="0" src="https://www.youtube.com/embed/SB1VqLCTFpA?rel=0&autoplay=1" frameborder="0"
@@ -164,6 +286,47 @@
     <script src="Scripts/main.js"></script>
 
     <script>
+        document.getElementById("instructionBtn").addEventListener("click", function () {
+            const box = document.getElementById("instructionsBox");
+            box.style.display = box.style.display === "block" ? "none" : "block";
+        });
+
+        document.getElementById("closeInstructions").addEventListener("click", function () {
+            document.getElementById("instructionsBox").style.display = "none";
+        });
+
+        document.getElementById("exitMenuBtn").addEventListener("click", function () {
+            // Logic when user clicks Exit from Menu
+            // For example: hide game, show menu or go back to a page
+            alert("Exit clicked from Menu");
+        });
+
+        document.getElementById("exitGameBtn").addEventListener("click", function () {
+            // Logic when user clicks Exit during the game
+            alert("Exit clicked from Game");
+        });
+
+        document.getElementById("exitGameBtn").addEventListener("click", function () {
+            // Show menu and hide game view
+            document.getElementById("menu").style.display = "block";
+            document.getElementById("game").style.display = "none";
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
         // Hide loading screen when page fully loads
         window.addEventListener('load', function () {
             document.getElementById('loadingScreen').style.display = 'none';
