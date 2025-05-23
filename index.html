@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
 
 <head>
@@ -47,55 +47,72 @@
             z-index: 1000;
         }
 
-        /* Main Menu Styles */
+        /* Game Menu Container */
         #menu {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 100;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            align-items: center;
+            gap: 20px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 5px solid #fff;
+            border-radius: 20px;
+            animation: fadeIn 1s ease-out forwards;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
         }
 
-        /* Button Styles */
+        /* Game Title */
+        #menu h1 {
+            font-size: 24px;
+            color: #ffcc00;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        /* Menu Buttons */
         #menu button {
-            padding: 16px 32px;
-            font-size: 20px;
+            width: 220px;
+            padding: 18px;
+            font-size: 16px;
+            font-family: inherit;
             border: none;
-            border-radius: 8px;
-            background-color: #ffcc00;
-            color: #fff;
+            border-radius: 12px;
+            background: #ffcc00;
+            color: #000;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
         }
 
         #menu button:hover {
-            background-color: #ffaa00;
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            background: #ffaa00;
+            transform: scale(1.05);
         }
 
         #menu button:active {
-            background-color: #e68a00;
-            transform: translateY(2px);
+            background: #e68a00;
+            transform: scale(0.98);
         }
 
-        /* Animations */
+        /* Fade-In Animation */
         @keyframes fadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translate(-50%, -60%);
             }
 
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translate(-50%, -50%);
             }
         }
+
+        /* Pixel Font (Optional Google Font) */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
         /* Game Content */
         #game {
@@ -113,16 +130,17 @@
 <body>
 
     <!-- Loading Screen -->
-    <div id="loadingScreen">Loading...</div>
+    <div id="loadingScreen"></div>
 
-    <!-- Menu -->
+
+    <!-- Game Menu Section -->
     <div id="menu">
-        <h1>Super Mario Na summa va</h1>
-        <button id="newGameBtn">Start Game</button>
-        <button id="settingsBtn">Settings</button>
-        <button id="exitBtn">Exit</button>
+        <h1>Super Mario: Na Summa Va</h1>
+        <button id="newGameBtn">▶ Start Game</button>
+        <button id="settingsBtn">⚙ Settings</button>
+        <button id="exitBtn">⏹ Exit</button>
     </div>
-
+    
     <!-- Game Content -->
     <div id="game">
         <div id="world"></div>
